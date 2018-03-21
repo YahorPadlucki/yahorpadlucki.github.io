@@ -1,8 +1,8 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="../customPixi/pixi.js"></script>
-
+    <title>pixijs. 4.7.1</title>
+    <script type="text/javascript" src="https://pixijs.download/v4.7.1/pixi.js"></script>
 </head>
 
 <body>
@@ -15,8 +15,8 @@
         let cnt = new PIXI.Container();
         app.stage.addChild(cnt);
         // create a new Sprite from an image path
-        var bunny = PIXI.Sprite.fromImage('../assets/bunny.png');
-        var bunny2 = PIXI.Sprite.fromImage('../assets/bunny.png');
+        var bunny = PIXI.Sprite.fromImage('./assets/bunny.png');
+        var bunny2 = PIXI.Sprite.fromImage('./assets/bunny.png');
 
         // center the sprite's anchor point
         bunny.anchor.set(0.5);
@@ -27,10 +27,10 @@
         blurFilter.blur = 3;
 
         function addBunny() {
-            let bunny = PIXI.Sprite.fromImage('../assets/bunny.png');
+            let bunny = PIXI.Sprite.fromImage('./assets/bunny.png');
             bunny.anchor.set(0.5);
 
-            let bunnyShadow = PIXI.Sprite.fromImage('../assets/bunny.png');
+            let bunnyShadow = PIXI.Sprite.fromImage('./assets/bunny.png');
             bunnyShadow.anchor.set(0.5);
             bunnyShadow.filters = [blurFilter]
             bunnyShadow.tint = 0;
@@ -51,6 +51,8 @@
         function destory() {
             cnt.destroy(true);
             cnt = new PIXI.Container();
+            app.stage.addChild(cnt);
+
         }
     </script>
 </body>

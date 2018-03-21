@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <title>PR for issue</title>
+    <script type="text/javascript" src="customPixi/pixi.js"></script>
+</head>
+
+<body>
+    <button onClick="addBunny()"> ADD element</button>
+    <button onClick="destory()"> Clear</button>
+    <script>
+        var app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
+        document.body.appendChild(app.view);
+
+        let cnt = new PIXI.Container();
+        app.stage.addChild(cnt);
+        // create a new Sprite from an image path
+        var bunny = PIXI.Sprite.fromImage('./assets/bunny.png');
+        var bunny2 = PIXI.Sprite.fromImage('./assets/bunny.png');
+
+        // center the sprite's anchor point
+        bunny.anchor.set(0.5);
+        bunny2.anchor.set(0.5);
+
+
+        var blurFilter = new PIXI.filters.BlurFilter();
+        blurFilter.blur = 3;
+
+        function addBunny() {
+            let bunny = PIXI.Sprite.fromImage('./assets/bunny.png');
+            bunny.anchor.set(0.5);
+
+            let bunnyShadow = PIXI.Sprite.fromImage('./assets/bunny.png');
+            bunnyShadow.anchor.set(0.5);
+            bunnyShadow.filters = [blurFilter]
+            bunnyShadow.tint = 0;
+            let x = Math.random() * 800;
+            let y = Math.random() * 600;
+
+            bunny.x = x;
+            bunny.y = y;
+
+            bunnyShadow.x = x + 2;
+            bunnyShadow.y = y + 2;
+
+            cnt.addChild(bunnyShadow);
+            cnt.addChild(bunny);
+
+        }
+
+        function destory() {
+            cnt.destroy(true);
+            cnt = new PIXI.Container();
+            app.stage.addChild(cnt);
+
+        }
+    </script>
+</body>
+
+</html>

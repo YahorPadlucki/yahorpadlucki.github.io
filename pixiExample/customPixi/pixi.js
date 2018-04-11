@@ -1,6 +1,6 @@
 /*!
  * pixi.js - v4.7.1
- * Compiled Tue, 20 Mar 2018 05:24:18 UTC
+ * Compiled Wed, 11 Apr 2018 05:33:30 UTC
  *
  * pixi.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -9035,12 +9035,6 @@ var Container = function (_DisplayObject) {
         var _this = _possibleConstructorReturn(this, _DisplayObject.call(this));
 
         _this.children = [];
-
-        /**
-         * Advanced WebGL renderer
-         * @type {PIXI.WebGLRenderer}
-         */
-        _this.advancedWebGLRenderer = null;
         return _this;
     }
 
@@ -9421,8 +9415,6 @@ var Container = function (_DisplayObject) {
     Container.prototype.renderAdvancedWebGL = function renderAdvancedWebGL(renderer) {
         renderer.flush();
 
-        this.advancedWebGLRenderer = renderer;
-
         var filters = this._filters;
         var mask = this._mask;
 
@@ -9547,11 +9539,6 @@ var Container = function (_DisplayObject) {
             for (var i = 0; i < oldChildren.length; ++i) {
                 oldChildren[i].destroy(options);
             }
-        }
-
-        // destroy filter states which retains display object data
-        if (this.advancedWebGLRenderer) {
-            this.advancedWebGLRenderer.filterManager.destroyFilterStateByTarget(this);
         }
     };
 
@@ -10052,6 +10039,8 @@ var DisplayObject = function (_EventEmitter) {
 
 
     DisplayObject.prototype.destroy = function destroy() {
+        this.emit('destroyed', this);
+
         this.removeAllListeners();
         if (this.parent) {
             this.parent.removeChild(this);
@@ -18880,6 +18869,7 @@ var FilterManager = function (_WebGLManager) {
         _this.filterData = null;
 
         _this.managedFilters = [];
+        _this.managedDisplayObjects = [];
 
         _this.renderer.on('prerender', _this.onPrerender, _this);
 
@@ -18900,6 +18890,11 @@ var FilterManager = function (_WebGLManager) {
         var renderer = this.renderer;
 
         var filterData = this.filterData;
+
+        if (this.managedDisplayObjects.indexOf(target) === -1) {
+            this.managedDisplayObjects.push(target);
+            target.on('destroyed', this.onManagedDisplayObjectDestroyed, this);
+        }
 
         if (!filterData) {
             filterData = this.renderer._activeRenderTarget.filterStack;
@@ -19284,6 +19279,8 @@ var FilterManager = function (_WebGLManager) {
 
 
     FilterManager.prototype.destroy = function destroy() {
+        var _this2 = this;
+
         var contextLost = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
         var renderer = this.renderer;
@@ -19304,6 +19301,10 @@ var FilterManager = function (_WebGLManager) {
         } else {
             this.pool = {};
         }
+        this.managedDisplayObjects.forEach(function (displayObject) {
+            return displayObject.off('destroyed', _this2.onManagedDisplayObjectDestroyed, _this2);
+        });
+        this.managedDisplayObjects = [];
     };
 
     /**
@@ -19450,6 +19451,22 @@ var FilterManager = function (_WebGLManager) {
                 }
             }
             this.pool[screenKey] = [];
+        }
+    };
+
+    /**
+     * Called when managed DisplayObject is destroyed
+     *
+     * @param {PIXI.DisplayObject} destroyedDisplayObject, object which was destroyed
+     */
+
+
+    FilterManager.prototype.onManagedDisplayObjectDestroyed = function onManagedDisplayObjectDestroyed(destroyedDisplayObject) {
+        var removedDisplayObjectIndex = this.managedDisplayObjects.indexOf(destroyedDisplayObject);
+
+        if (removedDisplayObjectIndex !== -1) {
+            this.destroyFilterStateByTarget(destroyedDisplayObject);
+            this.managedDisplayObjects.splice(removedDisplayObjectIndex, 1);
         }
     };
 

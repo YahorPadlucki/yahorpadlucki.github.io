@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Mouse Over/Out Bug</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="../customPixi/pixi.js"></script>
+    <style type="text/css">
+
+    </style>
+    <!-- TODO: Missing CoffeeScript 2 -->
+
+    <script type="text/javascript">
+
+
+        window.onload=function(){
+
+// SETUP
+
+            var stage = new PIXI.Stage(0x000000);
+            var renderer = PIXI.autoDetectRenderer(600, 140);
+            document.getElementById('stage').appendChild(renderer.view);
+
+//--
+
+            var ticker = PIXI.ticker.shared;
+            ticker.autoStart = false;
+            ticker.stop();
+
+            var tickerCheckbox = document.getElementById('ticker_checkbox');
+            tickerCheckbox.addEventListener('change', function(event){
+                if (this.checked){
+                    ticker.start();
+                }else{
+                    ticker.stop();
+                }
+            });
+
+//--
+
+            var background = new PIXI.Graphics();
+            background.lineStyle(1, 0xFFFFFF);
+
+            var labels = [];
+            var shapes = [];
+
+            for (var i = 0; i < 3; i++){
+
+                background.drawRect(((i * 200) + 60), 30, 80, 80);
+
+                var labelTop = new PIXI.Text('MOUSE OUT' ,{fontFamily : 'Arial', fontSize: 12, fill : 0xFFFFFF, align : 'center'});
+                labelTop.x = ((i * 200) + 60);
+                labelTop.y = 10;
+                labels.push(labelTop);
+                stage.addChild(labelTop);
+
+                var labelBottom = new PIXI.Text(('SHAPE # ' + (i + 1)),{fontFamily : 'Arial', fontSize: 12, fill : 0xFFFFFF, align : 'center'});
+                labelBottom.x = ((i * 200) + 60);
+                labelBottom.y = 115;
+                stage.addChild(labelBottom);
+
+                var shape = new PIXI.Graphics();
+                shape.interactive = true;
+                shape.buttonMode = true;
+                shape.beginFill(0x22AACC);
+                shape.drawRect(0, 0, 80, 80);
+                shape.endFill();
+                shape.x = ((i * 200) + 60);
+                shape.y = 30;
+                shapes.push(shape)
+                stage.addChild(shape);
+
+                shape.on('mouseover', function(event){
+                    var label = labels[shapes.indexOf(this)];
+                    label.text = 'MOUSE OVER'
+                });
+
+                shape.on('mouseout', function(event){
+                    var label = labels[shapes.indexOf(this)];
+                    label.text = 'MOUSE OUT'
+                });
+
+            }
+
+            stage.addChild(background);
+
+//--
+
+            shape2Factor = 0;
+            shape2SinFactor = 0;
+
+// START UPDATE LOOP
+            function update(){
+
+                // SHAPE 1
+                var shape1 = shapes[0];
+
+                // SHAPE 2
+                var shape2 = shapes[1];
+                shape2Factor = ((shape2Factor + 0.005) % 1);
+                shape2SinFactor = Math.sin(shape2Factor * (Math.PI * 2));
+                shape2.x = 260 + (shape2SinFactor * 80);
+
+                // SHAPE 3
+                var shape3 = shapes[2];
+                shape3.visible = (shape2.x > 260);
+
+                //--
+
+                renderer.render(stage);
+                requestAnimationFrame(update);
+
+            }
+            update();
+
+        }
+
+    </script>
+
+</head>
+<body>
+<div>
+    <p>
+        <input type='checkbox' id='ticker_checkbox' /> Ticker Toggle
+    </p>
+</div>
+
+<div id='stage'></div>
+
+<div>
+
+    <p>
+        <b>Shape # 1:</b>
+        Hover cursor on and off, observe state above changes, normal behavior.
+    </p>
+
+    <p>
+        <b>Shape # 2:</b>
+        Keep cursor in center of white box without moving, notice state above changes only when Ticker Toggle is checked.<br>
+        (Expected behavior is that 'mouseover' and 'mouseout' events will fire based on item transform, regardless of whether ticker is running)
+    </p>
+
+    <p>
+        <b>Shape # 3:</b>
+        Keep cursor in center of white box without moving, notice state above does not change, regardless of whether Ticker Toggle is checked.<br>
+        (Expected behavior is that 'mouseout' event is fired when shape visibility is set to false, and 'mouseover' event is fired when shape visibility is set to true, if said shape overlaps the cursor)
+    </p>
+
+    <p>
+        <b>Note:</b>
+        If anything, toggling visibility should fire 'mouseover' and 'mouseout' events if the ticker is running.
+    </p>
+
+</div>
+
+
+</body>
+</html>

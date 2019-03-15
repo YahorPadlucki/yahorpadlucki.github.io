@@ -31,6 +31,30 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":17,"y":17,"w":32,"h":32},
 	"sourceSize": {"w":66,"h":66}
+},
+"totem1.png":
+{
+	"frame": {"x":273,"y":362,"w":133,"h":134},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":133,"h":134},
+	"sourceSize": {"w":134,"h":134}
+},
+"totem2.png":
+{
+	"frame": {"x":1,"y":362,"w":134,"h":134},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":134,"h":134},
+	"sourceSize": {"w":134,"h":134}
+},
+"totem3.png":
+{
+	"frame": {"x":137,"y":362,"w":134,"h":134},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":134,"h":134},
+	"sourceSize": {"w":134,"h":134}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
@@ -39,6 +63,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "0.75",
-	"smartupdate": "$TexturePacker:SmartUpdate:3a9e89bf83f4e2ed55d282c0cbe1a20c:b4d86798f6c2f58b116590c35049664b:939deed520564a3a7b39d92836eaa22c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:93fe13a53501375ff7e8179b18a1e9b4:dd86036fcb67eca73578e3b9b9052d55:939deed520564a3a7b39d92836eaa22c$"
 }
 }

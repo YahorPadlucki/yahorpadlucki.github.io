@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.2.2</string>
         <key>fileName</key>
-        <string>/Users/yahor.padlucki/Work/GitHub/slotKit/client/data/packer.tps</string>
+        <string>/Users/yahor.padlucki/Work/GitHub/totemConcept/client/data/packer.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -243,6 +243,9 @@
             <key type="filename">sourceImages/reelsBack.png</key>
             <key type="filename">sourceImages/spinButtonBack.png</key>
             <key type="filename">sourceImages/stopBtnIcon.png</key>
+            <key type="filename">sourceImages/totem1.png</key>
+            <key type="filename">sourceImages/totem2.png</key>
+            <key type="filename">sourceImages/totem3.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -254,6 +257,9 @@
             <filename>sourceImages/spinButtonBack.png</filename>
             <filename>sourceImages/stopBtnIcon.png</filename>
             <filename>sourceImages/playBtnIcon.png</filename>
+            <filename>sourceImages/totem3.png</filename>
+            <filename>sourceImages/totem2.png</filename>
+            <filename>sourceImages/totem1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

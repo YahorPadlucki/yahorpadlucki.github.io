@@ -241,21 +241,6 @@ exports.LoadingManagerEvent = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SlotConfig = /** @class */ (function () {
-    function SlotConfig() {
-    }
-    return SlotConfig;
-}());
-exports.SlotConfig = SlotConfig;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 var LoaderCache = /** @class */ (function () {
     function LoaderCache() {
         this.imageCache = {};
@@ -271,6 +256,21 @@ var LoaderCache = /** @class */ (function () {
     return LoaderCache;
 }());
 exports.LoaderCache = LoaderCache;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SlotConfig = /** @class */ (function () {
+    function SlotConfig() {
+    }
+    return SlotConfig;
+}());
+exports.SlotConfig = SlotConfig;
 
 
 /***/ }),
@@ -396,6 +396,7 @@ var SymbolModel_1 = __webpack_require__(24);
 var locator_1 = __webpack_require__(0);
 var EventDispatcher_1 = __webpack_require__(1);
 var SymbolEvents_1 = __webpack_require__(10);
+var LoaderCache_1 = __webpack_require__(5);
 var SymbolView = /** @class */ (function (_super) {
     __extends(SymbolView, _super);
     function SymbolView(colorIndex) {
@@ -404,20 +405,36 @@ var SymbolView = /** @class */ (function (_super) {
         _this.symbolHeight = 100;
         _this.symbolModel = locator_1.get(SymbolModel_1.SymbolModel);
         _this.dispatcher = locator_1.get(EventDispatcher_1.EventDispatcher);
+        _this.loaderCache = locator_1.get(LoaderCache_1.LoaderCache);
         _this.setSymbolImage(colorIndex);
         _this.dispatcher.addListener(SymbolEvents_1.SymbolEvents.BLINK, _this.blink, _this);
         _this.dispatcher.addListener(SymbolEvents_1.SymbolEvents.STOP_BLINK, _this.stopBlink, _this);
         return _this;
     }
+    //1, 10, 10, 6, 3 -тщ
+    //1, 1, 2, 5, 0
+    //0, 3, 11, 6, 3 -еч
+    //6, 7, 0, 4, 1
+    //13, 0, 10, 4, 1 - тщ
+    //12, 0, 10, 4, 1
     SymbolView.prototype.setSymbolImage = function (colorIndex) {
         this.removeChildren();
-        var graphics = new PIXI.Graphics();
-        graphics.beginFill(this.symbolModel.colorMap[colorIndex]);
-        graphics.drawRect(0, 0, this.symbolWidth, this.symbolHeight);
-        graphics.endFill();
-        this.addChild(graphics);
-        var text = new PIXI.Text(colorIndex.toString());
-        this.addChild(text);
+        if (colorIndex == 41 || colorIndex == 42 || colorIndex == 43) {
+            var totemTexture = this.loaderCache.getTexture("totem" + colorIndex.toString().slice(-1));
+            var graphics = new PIXI.Sprite(totemTexture);
+            graphics.width = this.symbolWidth;
+            graphics.height = this.symbolHeight;
+            this.addChild(graphics);
+        }
+        else {
+            var graphics = new PIXI.Graphics();
+            graphics.beginFill(this.symbolModel.colorMap[colorIndex]);
+            graphics.drawRect(0, 0, this.symbolWidth, this.symbolHeight);
+            graphics.endFill();
+            this.addChild(graphics);
+            var text = new PIXI.Text(colorIndex.toString());
+            this.addChild(text);
+        }
     };
     SymbolView.prototype.blink = function (winSymbolData) {
         var _this = this;
@@ -815,7 +832,7 @@ var LoadingManager_1 = __webpack_require__(14);
 var locator_1 = __webpack_require__(0);
 var LoaderEvent_1 = __webpack_require__(4);
 var ServerEmulator_1 = __webpack_require__(13);
-var SlotConfig_1 = __webpack_require__(5);
+var SlotConfig_1 = __webpack_require__(6);
 var DeviceUtils_1 = __webpack_require__(16);
 var KeyboardManager_1 = __webpack_require__(46);
 var SlotModel_1 = __webpack_require__(3);
@@ -842,7 +859,7 @@ var Main = /** @class */ (function () {
         this.dispatcher.addListener(LoaderEvent_1.LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
         this.deviceUtils.init();
         this.keyBoardManager = locator_1.get(KeyboardManager_1.KeyboardManager);
-        this.loadingManager.loadJson('./dist/config.json').then(function (config) {
+        this.loadingManager.loadJson('./config.json').then(function (config) {
             _this.saveSlotConfig(config);
             _this.prepareServerAndMakeInitRequest();
         });
@@ -854,7 +871,7 @@ var Main = /** @class */ (function () {
     };
     Main.prototype.prepareServerAndMakeInitRequest = function () {
         var _this = this;
-        this.loadingManager.loadJson('./dist/emulation.json').then(function (emulationData) {
+        this.loadingManager.loadJson('./emulation.json').then(function (emulationData) {
             _this.server.init(emulationData.init, emulationData.spins);
             _this.server.initRequest().then(function (initResponse) { return _this.onInitResponse(initResponse); });
         });
@@ -862,7 +879,7 @@ var Main = /** @class */ (function () {
     Main.prototype.onInitResponse = function (initResponse) {
         this.slotModel.parseServerInitResponse(initResponse);
         this.createSlotViewAndController();
-        this.loadingManager.loadResources("./dist/assets.json");
+        this.loadingManager.loadResources("./assets.json");
     };
     Main.prototype.createSlotViewAndController = function () {
         this.slotView = new SlotView_1.SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);
@@ -1013,7 +1030,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ReelsController_1 = __webpack_require__(22);
 var UiPannel_1 = __webpack_require__(28);
 var BaseScene_1 = __webpack_require__(12);
-var LoaderCache_1 = __webpack_require__(6);
+var LoaderCache_1 = __webpack_require__(5);
 var locator_1 = __webpack_require__(0);
 var TotemLineContainer_1 = __webpack_require__(35);
 var ReelsScene = /** @class */ (function (_super) {
@@ -1078,7 +1095,7 @@ var ReelController_1 = __webpack_require__(27);
 var SlotEvent_1 = __webpack_require__(2);
 var SlotModel_1 = __webpack_require__(3);
 var locator_1 = __webpack_require__(0);
-var SlotConfig_1 = __webpack_require__(5);
+var SlotConfig_1 = __webpack_require__(6);
 var ReelsController = /** @class */ (function (_super) {
     __extends(ReelsController, _super);
     function ReelsController() {
@@ -1184,7 +1201,7 @@ var Container = PIXI.Container;
 var SymbolView_1 = __webpack_require__(9);
 var locator_1 = __webpack_require__(0);
 var SlotModel_1 = __webpack_require__(3);
-var SlotConfig_1 = __webpack_require__(5);
+var SlotConfig_1 = __webpack_require__(6);
 var ReelView = /** @class */ (function (_super) {
     __extends(ReelView, _super);
     function ReelView(reelModel) {
@@ -1607,7 +1624,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Button_1 = __webpack_require__(11);
-var LoaderCache_1 = __webpack_require__(6);
+var LoaderCache_1 = __webpack_require__(5);
 var locator_1 = __webpack_require__(0);
 var Sprite = PIXI.Sprite;
 var Point = PIXI.Point;
@@ -1650,7 +1667,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Button_1 = __webpack_require__(11);
-var LoaderCache_1 = __webpack_require__(6);
+var LoaderCache_1 = __webpack_require__(5);
 var locator_1 = __webpack_require__(0);
 var EventDispatcher_1 = __webpack_require__(1);
 var Sprite = PIXI.Sprite;
@@ -1896,7 +1913,7 @@ var SlotEvent_1 = __webpack_require__(2);
 var locator_1 = __webpack_require__(0);
 var EventDispatcher_1 = __webpack_require__(1);
 var SlotModel_1 = __webpack_require__(3);
-var SlotConfig_1 = __webpack_require__(5);
+var SlotConfig_1 = __webpack_require__(6);
 var TotemLineView_1 = __webpack_require__(36);
 var SymbolView_1 = __webpack_require__(9);
 var Container = PIXI.Container;
@@ -2031,7 +2048,11 @@ var TotemLineContainer = /** @class */ (function (_super) {
         var stopPosition = this.slotModel.getStopReelsPosition()[reelIndex];
         var reelSymbols = this.slotModel.tapes[reelIndex];
         var stoppedSymbols = reelSymbols.slice(stopPosition, stopPosition + this.slotConfig.reels.rowsCount + 1);
-        var totemSymbolLineIndex = stoppedSymbols.indexOf(this.totemSymbolID);
+        var totemSymbolLineIndex = stoppedSymbols.indexOf(41);
+        if (totemSymbolLineIndex == -1)
+            totemSymbolLineIndex = stoppedSymbols.indexOf(42);
+        if (totemSymbolLineIndex == -1)
+            totemSymbolLineIndex = stoppedSymbols.indexOf(43);
         return totemSymbolLineIndex;
     };
     return TotemLineContainer;
@@ -2624,7 +2645,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var FileLoader_1 = __webpack_require__(15);
-var LoaderCache_1 = __webpack_require__(6);
+var LoaderCache_1 = __webpack_require__(5);
 var locator_1 = __webpack_require__(0);
 var ImageLoader = /** @class */ (function (_super) {
     __extends(ImageLoader, _super);

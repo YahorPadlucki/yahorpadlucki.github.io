@@ -1,0 +1,44 @@
+{"frames": {
+
+"playBtnIcon.png":
+{
+	"frame": {"x":368,"y":1,"w":18,"h":20},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":12,"w":18,"h":20},
+	"sourceSize": {"w":44,"h":44}
+},
+"reelsBack.png":
+{
+	"frame": {"x":1,"y":1,"w":295,"h":239},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":295,"h":239},
+	"sourceSize": {"w":295,"h":239}
+},
+"spinButtonBack.png":
+{
+	"frame": {"x":298,"y":1,"w":44,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
+},
+"stopBtnIcon.png":
+{
+	"frame": {"x":344,"y":1,"w":22,"h":22},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":11,"w":22,"h":22},
+	"sourceSize": {"w":44,"h":44}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "slotAssets-ldpi.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":256},
+	"scale": "0.5",
+	"smartupdate": "$TexturePacker:SmartUpdate:3a9e89bf83f4e2ed55d282c0cbe1a20c:b4d86798f6c2f58b116590c35049664b:939deed520564a3a7b39d92836eaa22c$"
+}
+}

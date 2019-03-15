@@ -1,0 +1,18 @@
+{
+  "sounds": [
+    {
+      "id": "test",
+      "url": "dist/sounds/test.{type}",
+      "type": "Sound",
+      "priority": "PRELOAD"
+    }
+  ],
+  "images": [
+    {
+      "id": "slotAssets",
+      "type": "Atlas",
+      "url": "dist/textures/slotAssets-{dpi}.json",
+      "priority": "MAIN"
+    }
+  ]
+}

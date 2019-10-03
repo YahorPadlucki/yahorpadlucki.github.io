@@ -859,7 +859,7 @@ var Main = /** @class */ (function () {
         this.dispatcher.addListener(LoaderEvent_1.LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
         this.deviceUtils.init();
         this.keyBoardManager = locator_1.get(KeyboardManager_1.KeyboardManager);
-        this.loadingManager.loadJson('./config.json').then(function (config) {
+        this.loadingManager.loadJson('./dist/config.json').then(function (config) {
             _this.saveSlotConfig(config);
             _this.prepareServerAndMakeInitRequest();
         });
@@ -871,7 +871,7 @@ var Main = /** @class */ (function () {
     };
     Main.prototype.prepareServerAndMakeInitRequest = function () {
         var _this = this;
-        this.loadingManager.loadJson('./emulation.json').then(function (emulationData) {
+        this.loadingManager.loadJson('./dist/emulation.json').then(function (emulationData) {
             _this.server.init(emulationData.init, emulationData.spins);
             _this.server.initRequest().then(function (initResponse) { return _this.onInitResponse(initResponse); });
         });
@@ -879,7 +879,7 @@ var Main = /** @class */ (function () {
     Main.prototype.onInitResponse = function (initResponse) {
         this.slotModel.parseServerInitResponse(initResponse);
         this.createSlotViewAndController();
-        this.loadingManager.loadResources("./assets.json");
+        this.loadingManager.loadResources("./dist/assets.json");
     };
     Main.prototype.createSlotViewAndController = function () {
         this.slotView = new SlotView_1.SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);

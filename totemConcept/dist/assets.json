@@ -2,7 +2,7 @@
   "sounds": [
     {
       "id": "test",
-      "url": "sounds/test.{type}",
+      "url": "dist/sounds/test.{type}",
       "type": "Sound",
       "priority": "PRELOAD"
     }
@@ -11,7 +11,7 @@
     {
       "id": "slotAssets",
       "type": "Atlas",
-      "url": "textures/slotAssets-{dpi}.json",
+      "url": "dist/textures/slotAssets-{dpi}.json",
       "priority": "MAIN"
     }
   ]

@@ -1,0 +1,55 @@
+Privacy Policy
+
+Last updated: February 29, 2020
+
+Yapagames provides this Privacy Policy to explain how it treats Yapagames apps users data. By using the service, you agree to the collection and use of information in accordance with this Privacy Policy.
+
+Personal information
+We don’t collect any personal information from our players. However, our games integrate third party SDKs that are used for advertising (Unity Ads/Admob), enabling in-app purchases (Google Play Services) or providing achievements and Leaderboards (Google Play Services). We allow this operators to collect players information. This information could include, but is not limited to, persistent advertising identifiers, geolocation information, and IP addresses.
+
+We encourage you to review the privacy policies of the two third party operators we use in our games. They are listed below.
+
+Non-personal information
+We don’t store any kind of non-personal information from our players. However, Yapagames apps store some information, like the last highscore for gameplay purposes. This information is stored only in our users devices and is deleted when the app is unistalled.
+
+We allow third parties to collect some anonymous information by which users cannot be identified. Non-personal information may include technical information about our players devices, such as their screen resolution, device type, language and type of operating system and geo location. Non-personal information is gathered by third party services while you are accessing the service. They are allowed to use this information to conduct research and analysis, but only for strictly limited purposes.
+
+Again, we encourage you to review the policies of our third party operators. They are listed below.
+
+What our third-party operators do with the data collected.
+
+Admob
+
+Advertisers (Admob) collect data regarding advertisement performance, user’s interaction with ads and user’s interests. Collected data may include user’s personal information in order to serve users ads and for the third parties’ legitimate business interests.
+
+Unity Ads
+
+Unity Ads is provided by Unity Technologies. You can opt-out from Unity Ads service by following the instructions as described by Unity Technologies on their Privacy Policy. For more information about Unity Technologies, please visit Unity Technologies Privacy Policy page: https://unity3d.com/legal/privacy-policy.
+
+Third party operators are allowed to collect and use non-personal information to conduct research and analysis, or to target advertisements, or other limited purposes. This information cannot be used to individually identify any user. We encourage you to review the policies of the third party operators listed below.
+
+Third party operators
+ Advertising. Yapagames apps allows advertisements from Third Party (Admob and UnityAds) ad networks to be displayed in Yapagames apps. For persons in European Union countries, we have configured Yapagames apps to respect user’s choice to opt-out of behavioural advertising to be compliant with the General Data Protection Regulation of 2016 (GDPR).
+In-App Purchases. In order to make an in-app purchase, a user must use a third party (Google) checkout options that we have integrated with our games to finalize and pay for their order. Google’s and Apple’s privacy policy and security practices will apply to this process. We encourage you to read that privacy statement before providing your information.
+Game Services. Yapagames apps integrate Google Play Game Services. Google offers its own privacy policy, listed below.
+Links to our third party operators privacy policys
+
+Unity privacy policy: https://unity3d.com/legal/privacy-policy
+Google Admob privacy policy: https://www.google.co.uk/policies/technologies/partner-sites/
+Google privacy policy: https://policies.google.com/privacy/update?hl=en
+Google play terms: https://play.google.com/about/play-terms.html
+Google privacy troubleshooter: https://support.google.com/policies/troubleshooter/7575787?hl=en&visit_id=0-636628206782766103-1180499835&rd=1
+
+Links to Other Websites
+Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.
+We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
+
+
+
+Changes to this Privacy Policy
+We may update our Privacy Policy from time to time. You are advised to review this Privacy Policy periodically for any changes.
+
+Contact Us
+If you have any questions about this Privacy Policy, you can contact us by email: 
+
+yapa.store@gmail.com
